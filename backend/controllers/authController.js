@@ -1,15 +1,16 @@
 const {
-    register
+    register,
+    login
 } = require('../services/userService');
 
 const authController = require('express').Router();
 
 authController.post('/register', async (req, res, next) => {
     try {
-        if(req.body.email=='' || req.body.username=='' || req.body.password==''){
+        if (req.body.email == '' || req.body.username == '' || req.body.password == '') {
             throw new Error('All fields are required')
         }
-        if(req.body.password!=req.body.repass){
+        if (req.body.password != req.body.repass) {
             throw new Error('Passwords don\'t match');
         }
         const {
@@ -18,7 +19,7 @@ authController.post('/register', async (req, res, next) => {
             password
         } = req.body;
 
-       const token = await register(email, username, password);
+        const token = await register(email, username, password);
         res.cookie('token', token)
         res.status(201).json({
             message: 'User registered successfully'
@@ -26,6 +27,25 @@ authController.post('/register', async (req, res, next) => {
     } catch (err) {
         next(err);
     }
+});
+
+authController.post('/login', async (req, res, next) => {
+    try {
+        const token = await login(req.body.email, req.body.password);
+        res.cookie('token', token);
+        res.status(200).json({message: 'Login successful'})
+    } catch (err) {
+        next(err);
+    }
+});
+
+authController.post('/logout', (req,res,next)=>{
+    if(!req.cookies.token){
+        return res.status(400).json({message: 'No token to clear'})
+    }
+    res.clearCookie('token');
+    res.status(200).json({message:'Logout successful'})
 })
+
 
 module.exports = authController;

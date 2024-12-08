@@ -1,7 +1,8 @@
 const express = require('express');
 const databaseConfig = require('./config/database');
 const routesConfig = require('./config/routes')
-const errorHandler = require('./util/parser')
+const errorHandler = require('./util/parser');
+const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
@@ -11,6 +12,7 @@ async function start() {
     const app = express();
     
     app.use(express.json()); 
+    app.use(cookieParser());
     
     await databaseConfig(app);
     routesConfig(app);
