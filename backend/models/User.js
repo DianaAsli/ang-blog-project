@@ -4,12 +4,16 @@ const userSchema = new Schema({
     username:{
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        minlength:[2, 'Name should be at least 2 characters'],
+        maxlength:[20, 'Name should be at most 20 characters']
     },
     email:{
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please enter a valid email address'],
+        minlength:[10, 'Email should be at least 10 characters']
     },
     hashedPassword:{
         type: String,
