@@ -12,7 +12,7 @@ homeController.get('/users', async (req, res,next) => {
         if (users.length === 0) {
             return res.status(404).json({ message: 'No users found' });
         }
-        res.json(users);
+        res.status(200).json(users);
     } catch (error) {
         next(error)
     }

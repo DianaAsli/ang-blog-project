@@ -1,56 +1,79 @@
 const bcrypt = require('bcrypt');
-const jwt=require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-const JWT_SECRET = 'werdtghujklmJBHGF4567RTDHHDTFVG'
+const JWT_SECRET = 'werdtghujklmJBHGF4567RTDHHDTFVG';
 
-async function register(email, username, password){
- const existingEmail = await User.findOne({email}).collation({
-    locale:'en',
-    strength:2
- });
- const existingUsername = await User.findOne({username}).collation({
-    locale:'en',
-    strength:2
- });
+async function register(email, username, password) {
+   const existingEmail = await User.findOne({
+      email
+   }).collation({
+      locale: 'en',
+      strength: 2
+   });
+   const existingUsername = await User.findOne({
+      username
+   }).collation({
+      locale: 'en',
+      strength: 2
+   });
 
- if(existingEmail){
-    throw new Error('Email is taken');
- }
+   if (existingEmail) {
+      throw new Error('Email is taken');
+   }
 
- if(existingUsername){
-    throw new Error('Username is taken')
- }
+   if (existingUsername) {
+      throw new Error('Username is taken')
+   }
 
- const hashedPassword = await bcrypt.hash(password, 10);
- const user = await User.create({
-    email,
-    username,
-    hashedPassword
- })
+   const hashedPassword = await bcrypt.hash(password, 10);
+   const user = await User.create({
+      email,
+      username,
+      hashedPassword
+   })
 
- const token = createSession(user)
- return token;
+   const token = createSession(user)
+   return token;
+}
+
+async function login(email, password) {
+   const user = await User.findOne({email}).collation({
+      locale:'en',
+      strength:2
+   })
+   if(!user){
+      throw new Error('Incorrect email or password');
+   }
+
+   const hasMatch = await bcrypt.compare(password, user.hashedPassword);
+
+   if(!hasMatch){
+      throw new Error('Incorrect email or password');
+   }
+   const token = createSession(user);
+   return token;
 }
 
 function createSession({
    _id,
    username,
    email
-}){
-   const payload={
-      _id, 
+}) {
+   const payload = {
+      _id,
       username,
       email
    }
-   const token = jwt.sign(payload,JWT_SECRET);
+   const token = jwt.sign(payload, JWT_SECRET);
    return token;
 }
 
-function verifyToken(token){
+function verifyToken(token) {
    return jwt.verify(token, JWT_SECRET);
 }
 
-module.exports={
-    register
+module.exports = {
+   register,
+   login
 }
