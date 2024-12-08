@@ -75,5 +75,7 @@ function verifyToken(token) {
 
 module.exports = {
    register,
-   login
+   login,
+   verifyToken,
+   createSession
 }
