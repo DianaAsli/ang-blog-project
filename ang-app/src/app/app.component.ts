@@ -3,13 +3,14 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
-import { RegisterComponent } from "./auth/register/register.component";
-import { LoginComponent } from './auth/login/login.component';
+import { PostCardComponent } from './layouts/post-card/post-card.component';
+//import { RegisterComponent } from "./auth/register/register.component";
+//import { LoginComponent } from './auth/login/login.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, NavbarComponent, FooterComponent, RegisterComponent, LoginComponent],
+  imports: [RouterOutlet, HeaderComponent, NavbarComponent, FooterComponent, PostCardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
