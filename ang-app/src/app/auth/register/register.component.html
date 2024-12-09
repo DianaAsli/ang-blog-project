@@ -10,7 +10,7 @@
               Create an account to access all features!
             </p>
             
-            <form (submit)="formSubmit(form)" #form='ngForm'>
+            <form (ngSubmit)="onSubmit(form)" #form='ngForm'>
               <div class="form-group mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email"

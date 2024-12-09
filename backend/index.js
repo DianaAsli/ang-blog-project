@@ -3,6 +3,7 @@ const databaseConfig = require('./config/database');
 const routesConfig = require('./config/routes')
 const errorHandler = require('./util/parser');
 const cookieParser = require('cookie-parser');
+const cors=require('cors');
 
 require('dotenv').config();
 
@@ -13,6 +14,11 @@ async function start() {
     
     app.use(express.json()); 
     app.use(cookieParser());
+    app.use(cors({
+        origin:'http://localhost:4200',
+        methods:'*',
+        allowedHeaders:'*'
+    }));
     
     await databaseConfig(app);
     routesConfig(app);
