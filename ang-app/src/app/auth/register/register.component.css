@@ -37,10 +37,14 @@
     text-decoration: underline;
 }
 
-.error-mess {
+.error-message {
     font-size: 0.875rem;
     color: red;
     margin-top: 0.25rem;
     padding-left: 0.5rem;
+}
+
+input.ng-invalid{
+    border: 2px solid red;
 }
 

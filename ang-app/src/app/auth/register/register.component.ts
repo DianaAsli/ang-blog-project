@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class RegisterComponent {
 
-  formSubmit(form: any) {
+  formSubmit(form: NgForm) {
     console.log('Form submitted');
     console.log(form.value);
 
