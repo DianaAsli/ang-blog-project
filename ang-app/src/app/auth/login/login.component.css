@@ -1,0 +1,38 @@
+.login-section {
+    padding: 80px 0;
+    min-height: 100vh;
+}
+
+.card {
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid var(--body-text-color);
+    font-size: 14px;
+    height: 45px;
+}
+
+.form-label {
+    color: var(--body-text-color);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.btn-theme {
+    height: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-theme:hover {
+    background-color: darken(var(--primary-color), 10%);
+}
+
+.text-theme-primary:hover {
+    text-decoration: underline;
+}
