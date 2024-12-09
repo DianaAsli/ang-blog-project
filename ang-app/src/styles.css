@@ -80,6 +80,7 @@ input[type="email"]:focus {
 
 .btn-theme {
     height: 2.5rem; 
+    text-align: center;
     padding: 0 1.25rem;
     border: none;
     color: white;

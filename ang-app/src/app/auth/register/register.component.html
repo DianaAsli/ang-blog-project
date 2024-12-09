@@ -1,42 +1,61 @@
-<section class="register-section bg-secondary-theme">
-    <div class="container py-5">
-      <div class="row justify-content-center">
-        <div class="col-md-6">
-          <div class="card shadow-effect">
-            <div class="card-body">
-              <h2 class="text-center text-theme-primary">Register</h2>
-              <p class="text-center text-muted mb-4">
-                Create an account to access all features!
-              </p>
-              <form>
-                <div class="form-group mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="email" id="email" class="form-control" placeholder="Enter your email" />
-                </div>
-                <div class="form-group mb-3">
-                  <label for="username" class="form-label">Username</label>
-                  <input type="text" id="username" class="form-control" placeholder="Enter your username" />
-                </div>
-                <div class="form-group mb-3">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" id="password" class="form-control" placeholder="Enter your password" />
-                </div>
-                <div class="form-group mb-3">
-                  <label for="repeat-password" class="form-label">Repeat Password</label>
-                  <input type="password" id="repeat-password" class="form-control" placeholder="Repeat your password" />
-                </div>
-                <div class="d-grid mt-4">
-                  <button type="submit" class="btn btn-theme">Register</button>
-                </div>
-                <p class="text-center mt-3">
-                  Already have an account?
-                  <a href="/login" class="text-theme-primary">Login here</a>
-                </p>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
+<form (submit)="formSubmit(form)" #form="ngForm">
+  <div class="form-group mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input
+      type="email"
+      name="email"
+      id="email"
+      class="form-control"
+      placeholder="Enter your email"
+      #email="ngModel"
+      ngModel
+      required
+      />
+   <div class="alert">
+    @if(email.invalid && email.touched){
+      <p class="error-mess">Email is require.</p>
+    }
+   </div>
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="username" class="form-label">Username</label>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      class="form-control"
+      placeholder="Enter your username"
+      ngModel />
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      class="form-control"
+      placeholder="Enter your password"
+      ngModel />
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="repeat-password" class="form-label">Repeat Password</label>
+    <input
+      type="password"
+      name="repass"
+      id="repeat-password"
+      class="form-control"
+      placeholder="Repeat your password"
+      ngModel />
+  </div>
+
+  <div class="d-grid mt-4">
+    <button type="submit" class="btn btn-theme">Register</button>
+  </div>
+  <p class="text-center mt-3">
+    Already have an account?
+    <a href="/auth/login" class="text-theme-primary">Login here</a>
+  </p>
+</form>

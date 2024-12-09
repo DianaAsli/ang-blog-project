@@ -65,6 +65,37 @@
   .shadow-effect {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
+  .btn-theme {
+    height: 2.5rem;
+    text-align: center;
+    padding: 0 1.25rem;
+    border: none;
+    color: white;
+    font-size: var(--font-size-sm);
+    background-color: var(--primary-color);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-theme:hover {
+    background-color: darken(var(--primary-color), 10%);
+    transform: translateY(-3px);
+}
+
+.btn-theme:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+
+.btn-theme span {
+    display: inline-block;
+    font-weight: 600;
+}
+
   
   @media (max-width: 576px) {
     .card {
