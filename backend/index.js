@@ -17,8 +17,9 @@ async function start() {
     
     app.use(cors({
         origin:'http://localhost:4200',
-        methods:'*',
-        allowedHeaders:'*'
+        methods:['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders:['Content-Type', 'Authorization'],
+        credentials: true
     }));
     
     await databaseConfig(app);

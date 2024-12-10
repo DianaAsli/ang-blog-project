@@ -9,11 +9,11 @@ import { Response } from '../models/responce.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private url = 'http://localhost:3000/auth/register';
+  private url = 'http://localhost:3000/auth/';
 
   constructor(private http: HttpClient) { }
 
   register(userData: User): Observable<Response> {
-    return this.http.post<Response>(this.url, userData);
+    return this.http.post<Response>(this.url + "register", userData, { withCredentials: true });
   }
 }

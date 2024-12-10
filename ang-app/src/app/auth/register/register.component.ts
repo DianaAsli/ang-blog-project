@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -9,13 +11,23 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+
+  constructor(private authService: AuthService){}
   
   onSubmit(form: NgForm) {
     if(form.invalid){
       return;
     }
-    console.log('Form submitted');
-    console.log(form.value);
+    const user: User = form.value;
+    this.authService.register(user).subscribe(
+      response =>{
+        console.log('Successful user registratiion', response);
+      },
+      error => {
+        console.log('Error', error);
+        
+      }
+    )
 
   }
 

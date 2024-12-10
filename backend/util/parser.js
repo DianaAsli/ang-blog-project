@@ -4,7 +4,7 @@ function errorHandler(err, req, res, next) {
         return res.status(400).json({
             message: validationErrors.join(',')
         })
-    }
+    } 
     const statusCode = err.status || 500;
     const message = err.message || 'Internal server error'
 
