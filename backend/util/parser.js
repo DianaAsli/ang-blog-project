@@ -7,17 +7,16 @@ function errorHandler(err, req, res, next) {
         })
     }
 
+    
     const statusCode = err.status || 500;
     const message = err.message || 'Internal server error'
-
-    let error = res.status(statusCode).json({
-        message
-    });
-
-    console.log(error);
-    return error;
     
+    const response = {message};
+    if(err.field){
+        response.field=err.field;
+    }
     
+    res.status(statusCode).json(response);
 }
 
 module.exports = errorHandler;

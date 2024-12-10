@@ -4,6 +4,7 @@ const routesConfig = require('./config/routes')
 const errorHandler = require('./util/parser');
 const cookieParser = require('cookie-parser');
 const cors=require('cors');
+const session = require('./middlewares/session');
 
 require('dotenv').config();
 
@@ -14,6 +15,7 @@ async function start() {
     
     app.use(express.json()); 
     app.use(cookieParser());
+    app.use(session());
     
     app.use(cors({
         origin:'http://localhost:4200',

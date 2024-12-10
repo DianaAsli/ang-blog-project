@@ -19,8 +19,8 @@
 
                 @if((email.touched && email.invalid) || (email.invalid && !submitted)){
                 <p class="error-message">{{getErrorMessage(email, 'Email')}}</p>
-                } @else if(errorMessage){
-                  <p class="error-message">{{errorMessage}}</p>
+                } @else if(emailError){
+                  <p class="error-message">{{emailError}}</p>
                 }
               </div>
 
@@ -28,9 +28,11 @@
                   <label for="username" class="form-label">Username</label>
                   <input type="text" name="username" id="username" class="form-control"
                     [class.ng-invalid]="username.invalid && username.touched" placeholder="Enter your username" ngModel
-                    #username="ngModel" required minlength="3" maxlength="20" />
+                    #username="ngModel"  required minlength="3" maxlength="20" />
                     @if((username.touched && username.invalid) || (username.invalid && !submitted)){
                       <p class="error-message">{{getErrorMessage(username, 'Username')}}</p>
+                      } @else if(usernameError){
+                        <p class="error-message">{{usernameError}}</p>
                       }
                 </div>
 

@@ -19,14 +19,16 @@ async function register(email, username, password) {
    });
 
    if (existingEmail) {
-      const error = new Error('Email is taken');
+      const error = new Error('Email is taken.');
       error.status = 409;
+      error.field='email';
       throw error;
    }
 
    if (existingUsername) {
-      const error = new Error('Username is taken');
+      const error = new Error('Username is taken.');
       error.status = 409;
+      error.field = 'username';
       throw error;
    }
 

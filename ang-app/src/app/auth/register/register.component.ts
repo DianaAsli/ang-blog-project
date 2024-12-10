@@ -13,33 +13,41 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
 
-  constructor(private authService: AuthService, private router: Router){}
-   
-  errorMessage: string = '';
+  constructor(private authService: AuthService, private router: Router) { }
+
+  emailError: string = '';
+  usernameError: string = '';
   submitted = true;
 
   onSubmit(form: NgForm) {
 
     if (form.invalid) {
-      this.submitted=false;
+      this.submitted = false;
       return;
     }
-   
+
     const user: User = form.value;
     this.authService.register(user).subscribe({
-      next: (resp) => {console.log('Successful registration', resp);
+      next: (resp) => {
+        console.log('Successful registration', resp);
         this.router.navigate(['/']);
       },
       error: (err) => {
-        if(err.error && err.error.message){
-          this.errorMessage=err.error.message;
-          
-          console.log('Backend error', err.error.message);
-          
-        } else{
+        if (err.error && err.error.field) {
+          if (err.error.field == 'email') {
+            this.emailError = err.error.message;
+          } 
+           if(err.error.field=='username'){
+            this.usernameError=err.error.message;
+          }
 
-          this.errorMessage='An unexpected error occured.'
-        console.log('error from server',err);}
+          //console.log('Backend error', err.error.message);
+
+        } else {
+
+          //this.errorMessage = 'An unexpected error occured.'
+          console.log('error from server', err);
+        }
       }
     });
   }
