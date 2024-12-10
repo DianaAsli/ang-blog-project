@@ -19,11 +19,15 @@ async function register(email, username, password) {
    });
 
    if (existingEmail) {
-      throw new Error('Email is taken');
+      const error = new Error('Email is taken');
+      error.status = 409;
+      throw error;
    }
 
    if (existingUsername) {
-      throw new Error('Username is taken')
+      const error = new Error('Username is taken');
+      error.status = 409;
+      throw error;
    }
 
    const hashedPassword = await bcrypt.hash(password, 10);

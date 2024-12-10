@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,32 +13,44 @@ import { User } from '../../models/user.model';
 })
 export class RegisterComponent {
 
-  constructor(private authService: AuthService){}
-  
+  constructor(private authService: AuthService, private router: Router){}
+   
+  errorMessage: string = '';
+  submitted = true;
+
   onSubmit(form: NgForm) {
-    if(form.invalid){
+
+    if (form.invalid) {
+      this.submitted=false;
       return;
     }
+   
     const user: User = form.value;
-    this.authService.register(user).subscribe(
-      response =>{
-        console.log('Successful user registratiion', response);
+    this.authService.register(user).subscribe({
+      next: (resp) => {console.log('Successful registration', resp);
+        this.router.navigate(['/']);
       },
-      error => {
-        console.log('Error', error);
-        
-      }
-    )
+      error: (err) => {
+        if(err.error && err.error.message){
+          this.errorMessage=err.error.message;
+          
+          console.log('Backend error', err.error.message);
+          
+        } else{
 
+          this.errorMessage='An unexpected error occured.'
+        console.log('error from server',err);}
+      }
+    });
   }
 
-  getErrorMessage(input: any, fieldName: String): String | null {
-    if (input.errors.required) {
+  getErrorMessage(input: any, fieldName: string): string | null {
+    if (input.errors?.required) {
       return `${fieldName} is required.`;
     } else if (input.errors?.email) {
       return 'Email is invalid.';
     } else if (input.errors?.minlength) {
-      return `${fieldName} must be at least ${input.errors.minlength.requiredLength} characters.`
+      return `${fieldName} must be at least ${input.errors.minlength.requiredLength} characters.`;
     }
     return null;
   }
@@ -50,3 +63,4 @@ export class RegisterComponent {
   }
 
 }
+
