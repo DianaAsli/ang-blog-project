@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { Response } from '../models/responce.model';
+import { LoginUser } from '../models/login-user.model';
 
 
 @Injectable({
@@ -16,4 +17,8 @@ export class AuthService {
   register(userData: User): Observable<Response> {
     return this.http.post<Response>(this.url + "register", userData, { withCredentials: true });
   }
+  login(userData: LoginUser): Observable<Response> {
+    return this.http.post<Response>(this.url + "/login", userData, { withCredentials: true })
+  }
+
 }
