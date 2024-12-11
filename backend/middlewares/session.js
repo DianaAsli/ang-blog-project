@@ -9,7 +9,8 @@ module.exports = () => (req, res, next) => {
             const userData = verifyToken(token);
             req.user = userData;
         } catch (err) {
-            return;
+            res.clearCoookie('token');
+            return res.statis(401).json({message:'Invalid or expired token.'})
         }
     }
     next();
