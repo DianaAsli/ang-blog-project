@@ -6,7 +6,8 @@ const {
     edit,
     deleteById,
     getAll,
-    getFiltredByTitle
+    getFiltredByTitle,
+    getLastSix
 } = require('../services/postService');
 const {
     parseError
@@ -14,6 +15,29 @@ const {
 
 const postController = require('express').Router();
 
+postController.get('/?limit=6', async (req, res,next) => {
+    try {
+        const posts = await getLastSix();
+        if (posts.length === 0) {
+            return res.status(404).json({ message: 'No posts found' });
+        }
+        res.status(200).json(posts);
+    } catch (error) {
+        next(error);
+    }
+});
+
+postController.get('/all', async (req, res,next) => {
+    try {
+        const posts = await getAll();
+        if (posts.length === 0) {
+            return res.status(404).json({ message: 'No posts found' });
+        }
+        res.status(200).json(posts);
+    } catch (error) {
+        next(error);
+    }
+});
 
 postController.post('/create', hasUser(), async (req, res, next) => {
     const post = {
